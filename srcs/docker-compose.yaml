@@ -1,0 +1,24 @@
+services:
+  # MARIADB
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    image: inception_mariadb
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    volumes:
+      - mariadb_volumn:/opt/mariadb/data
+
+networks:
+  inception_network:
+    external: true
+
+volumes:
+  mariadb_volumn:
