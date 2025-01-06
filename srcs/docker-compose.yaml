@@ -12,7 +12,9 @@ services:
       MARIADB_USER: ${MARIADB_USER}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     volumes:
-      - mariadb_volumn:/opt/mariadb/data
+      - ./data/mariadb:/opt/mariadb/data
+    networks:
+      - inception_network
 
   # NGINX
   nginx:
@@ -23,13 +25,44 @@ services:
     image: inception_nginx
     restart: always
     ports:
-      - "443:443"
+      # - "443:443"
+      - "80:80"
+    volumes:
+      - ./data/wordpress:/var/www/html
+    depends_on:
+      - wordpress
+    networks:
+      - inception_network
+
+  # WORDPRESS
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    image: inception_wordpress
+    restart: always
+    environment:
+      MARIADB_HOST: mariadb:3306
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      WP_DOMAIN_NAME: ${WP_DOMAIN_NAME}
+      WP_ADMIN_USER: ${WP_ADMIN_USER}
+      WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+      WP_TITLE: ${WP_TITLE}
+      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
+      WP_USER: ${WP_USER}
+      WP_PASSWORD: ${WP_PASSWORD}
+      WP_ROLE: ${WP_ROLE}
+      WP_EMAIL: ${WP_EMAIL}
+    volumes:
+      - ./data/wordpress:/var/www/html
     depends_on:
       - mariadb
+    networks:
+      - inception_network
 
 networks:
   inception_network:
-    external: true
-
-volumes:
-  mariadb_volumn:
+    driver: bridge

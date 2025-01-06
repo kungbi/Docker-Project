@@ -10,5 +10,6 @@ clean:
 
 fclean: clean
 	docker compose -f ./srcs/docker-compose.yaml down --volumes --rmi all
+	rm -rf ./srcs/data
 
 re: fclean all
