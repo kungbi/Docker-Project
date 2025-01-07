@@ -10,22 +10,13 @@ if [ ! -d /run/mysqld ]; then
 
 	mkdir -p /run/mysqld
 	chown -R mysql:mysql /run/mysqld
-	mariadbd --user=mysql --datadir=/opt/mariadb/data &
-	export PID=$!
 
-	echo "Waiting for MariaDB to initialize..."
-	until mariadb -e "SELECT 1" > /dev/null 2>&1; do
-		echo "MariaDB is initializing..."
-		sleep 1
-	done
+	echo "Creating init.sql..."
+	/tmp/init_sql.sh
 
 	echo "Configuring MariaDB..."
-	mariadb -e "CREATE USER '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_PASSWORD}';"
-	mariadb -e "CREATE DATABASE ${MARIADB_DATABASE};"
-	mariadb -e "GRANT ALL PRIVILEGES ON ${MARIADB_DATABASE}.* TO '${MARIADB_USER}'@'%' WITH GRANT OPTION;"
-	mariadb -e "FLUSH PRIVILEGES;"
+	exec mariadbd --user=mysql --init-file=/tmp/init.sql --datadir=/opt/mariadb/data 
 
-	kill -9 $PID
+else
+	exec mariadbd --user=mysql --datadir=/opt/mariadb/data
 fi
-
-exec mariadbd --user=mysql --datadir=/opt/mariadb/data
