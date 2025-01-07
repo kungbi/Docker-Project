@@ -12,7 +12,7 @@ services:
       MARIADB_USER: ${MARIADB_USER}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     volumes:
-      - ./data/mariadb:/opt/mariadb/data
+      - ~/data/mariadb:/opt/mariadb/data
     networks:
       - inception_network
 
@@ -28,7 +28,7 @@ services:
       - "443:443"
       - "80:80"
     volumes:
-      - ./data/wordpress:/var/www/html
+      - ~/data/wordpress:/var/www/html
     depends_on:
       - wordpress
     networks:
@@ -57,7 +57,7 @@ services:
       WP_ROLE: ${WP_ROLE}
       WP_EMAIL: ${WP_EMAIL}
     volumes:
-      - ./data/wordpress:/var/www/html
+      - ~/data/wordpress:/var/www/html
     depends_on:
       - mariadb
     networks:
