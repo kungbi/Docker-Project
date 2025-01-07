@@ -10,6 +10,4 @@ COPY ./config/my.cnf /etc/my.cnf
 
 RUN mkdir -p /opt/mariadb
 
-EXPOSE 3306
-
 ENTRYPOINT ["/tmp/setup.sh"]

@@ -9,6 +9,4 @@ COPY ./config/default.conf /etc/nginx/http.d/default.conf
 COPY ./tools/setup.sh /tmp/setup.sh
 RUN chmod +x /tmp/setup.sh
 
-EXPOSE 80
-
 ENTRYPOINT ["/tmp/setup.sh"]

@@ -20,6 +20,4 @@ RUN cp wp-cli.phar /usr/bin/wp
 
 WORKDIR /var/www/html
 
-EXPOSE 9000
-
 ENTRYPOINT [ "/tmp/setup.sh" ]
