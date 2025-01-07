@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.21
 
 RUN apk update && apk upgrade
 
@@ -9,9 +9,6 @@ RUN apk add php php-fpm php-mysqli \
 
 COPY ./tools/setup.sh /tmp/setup.sh
 RUN chmod +x /tmp/setup.sh
-
-# COPY ./config/wp-config-create.sh /tmp/wp-config-create.sh
-# RUN chmod +x /tmp/wp-config-create.sh
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 

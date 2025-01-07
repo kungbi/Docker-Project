@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.21
 
 RUN apk update && apk upgrade
 RUN apk add mariadb mariadb-client --no-cache
