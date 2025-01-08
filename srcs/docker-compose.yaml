@@ -12,7 +12,7 @@ services:
       MARIADB_USER: ${MARIADB_USER}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     volumes:
-      - mariadb_volume:/opt/mariadb/data
+      - mariadb_volume:/opt/mariadb
     networks:
       - inception_network
 
@@ -69,15 +69,17 @@ networks:
 
 volumes:
   mariadb_volume:
+    name: mariadb_volume
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /Users/woongbishin/data/mariadb
-      
+      device: ${HOME}/data/mariadb
+
   wordpress_volume:
+    name: wordpress_volume
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /Users/woongbishin/data/wordpress
+      device: ${HOME}/data/wordpress
