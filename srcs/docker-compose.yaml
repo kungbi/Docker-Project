@@ -70,3 +70,8 @@ networks:
 volumes:
   mariadb_volume:
   wordpress_volume:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/woongbishin/data/wordpress
