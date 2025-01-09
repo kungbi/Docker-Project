@@ -12,7 +12,7 @@ clean:
 
 fclean: 
 	docker compose -f ./srcs/docker-compose.yaml down --volumes --rmi all
-	rm -rf ${DATA_PATH}
+	sudo rm -rf ${DATA_PATH}
 
 re: fclean all
 
