@@ -5,7 +5,6 @@ include ${ENV_FILE}
 all: 
 	mkdir -p ${MARIADB_PATH}
 	mkdir -p ${WORDPRESS_PATH}
-	chmod -R 777 ${DATA_PATH}
 	docker compose --env-file ${ENV_FILE} -f ./srcs/docker-compose.yaml up -d --build
 
 clean:
