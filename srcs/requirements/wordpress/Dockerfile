@@ -15,6 +15,4 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN cp wp-cli.phar /usr/bin/wp
 
-EXPOSE 9000
-
 ENTRYPOINT [ "/tmp/setup.sh" ]
